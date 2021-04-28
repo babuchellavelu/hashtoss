@@ -1,26 +1,41 @@
-import React from 'react';
-import { Container, Menu , Button} from 'semantic-ui-react';
+import React, { useState } from "react";
+import { Container, Menu, Button } from "semantic-ui-react";
+import { NavLink, useHistory } from "react-router-dom";
+import SignedOutPage from "./SignedOutPage";
+import SignedInPage from "./SignedInPage";
 
-export default function NavBar({setFormOpen}) {
-    return (
-            <Menu  fixed='top' inverted>
-                <Container>
-                    <Menu.Item header>
-                        <img src='/assets/logo.png'  style={{marginRight:15}} className='imgcls'/>
-                         Re-vents
-                    </Menu.Item>
-                    <Menu.Item name="Events" />
-                    <Menu.Item >
-                        <Button onClick={() => setFormOpen(true)} positive inverted content='Create Events'/>
-                    </Menu.Item>
+export default function NavBar({ setFormOpen }) {
+  const history = useHistory();
+  const [authenticated, setAuthenticated] = useState(false);
 
-                    <Menu.Item position='right'>
-                        <Button basic inverted content='Login'/>
-                        <Button basic inverted content='Register' style={{marginLeft:'0,5em'}}/>
-                    </Menu.Item>
+  function handleSignout() {
+    setAuthenticated(false);
+    history.push('/');
+  }
 
-                </Container>
-
-            </Menu>
-    )
+  return (
+    <Menu fixed="top" inverted>
+      <Container>
+        <Menu.Item as={NavLink} to="/" exact header>
+          <img
+            src="/assets/logo.png"
+            style={{ marginRight: 15 }}
+            className="imgcls"
+          />
+          Re-vents
+        </Menu.Item>
+        <Menu.Item as={NavLink} to="/events" name="Events" />
+        {authenticated && (
+          <Menu.Item as={NavLink} to="/createEvent">
+            <Button positive inverted content="Create Events" />
+          </Menu.Item>
+        )}
+        {authenticated ? (
+          <SignedInPage signout={handleSignout} />
+        ) : (
+          <SignedOutPage setAuthenticated={setAuthenticated} />
+        )}
+      </Container>
+    </Menu>
+  );
 }

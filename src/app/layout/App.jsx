@@ -1,24 +1,50 @@
-import React, {useState}  from 'react';
-import { Container } from 'semantic-ui-react';
-import EventDashboard from '../../features/events/eventDashboard/eventDashboard';
-import NavBar from '../../features/nav/NavBar';
+import React from "react";
+import { Route } from "react-router";
+import { Container } from "semantic-ui-react";
+import EventDashboard from "../../features/events/eventDashboard/eventDashboard";
+import HomePage from "../../features/home/HomePage";
+import NavBar from "../../features/nav/NavBar";
+import EventDetailedPage from "../../features/events/eventDetailed/EventDetailedPage";
+import EventForm from "../../features/events/eventForm/EventForm";
 
 function App() {
+  // const [formOpen, setFormOpen] = useState(false);
 
-    const [formOpen,setFormOpen] =useState(false);
-  /*Below is the no JSX code for the below code using react.createElement */
- // const title = React.createElement('h1',{}, 'Revents No JSX');
- // const div = React.createElement('div', {className:'App'}, title);
+  // const [selectedEvent, setSelectedEvent] = useState(null);
+
+  // function handleCreateFormOpen() {
+  //   setSelectedEvent(null);
+  //   setFormOpen(true);
+  // }
+
+  // function handleSelectEvent(event) {
+  //   setSelectedEvent(event);
+  //   setFormOpen(true);
+  // }
+
+  //  <EventDashboard formOpen={formOpen} setFormOpen={setFormOpen} selectedEvent={selectedEvent} selectEvent={handleSelectEvent} />
 
   return (
-     <>
-       <NavBar setFormOpen={setFormOpen}/>
-      <Container className='main'>
-        <EventDashboard formOpen={formOpen} setFormOpen={setFormOpen}/>
-      </Container>
-            
-     </>
+    <>
+      <Route path="/" exact component={HomePage} />
 
+      <Route
+        path={"/(.+)"}
+        render={() => (
+          <>
+            <NavBar />
+            <Container className="main">
+              <Route path="/events" exact component={EventDashboard} />
+              <Route path="/events/:id" component={EventDetailedPage} />
+              <Route
+                path={["/createEvent", "/manage/:id"]}
+                component={EventForm}
+              />
+            </Container>
+          </>
+        )}
+      />
+    </>
   );
 }
 
