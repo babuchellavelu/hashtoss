@@ -10,7 +10,7 @@ export default function NavBar({ setFormOpen }) {
 
   function handleSignout() {
     setAuthenticated(false);
-    history.push('/');
+    history.push("/");
   }
 
   return (
@@ -19,12 +19,14 @@ export default function NavBar({ setFormOpen }) {
         <Menu.Item as={NavLink} to="/" exact header>
           <img
             src="/assets/logo.png"
+            alt="logo"
             style={{ marginRight: 15 }}
             className="imgcls"
           />
           Re-vents
         </Menu.Item>
         <Menu.Item as={NavLink} to="/events" name="Events" />
+        <Menu.Item as={NavLink} to="/sandbox" name="Sandbox" />
         {authenticated && (
           <Menu.Item as={NavLink} to="/createEvent">
             <Button positive inverted content="Create Events" />

@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import { Button, Form, Header, Segment } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import cuid from "cuid";
+import { useDispatch, useSelector } from "react-redux";
+import { createEvent, updateEvent } from "../eventActions";
 
-export default function EventForm({
-  setFormOpen,
-  setEvents,
-  createEvent,
-  selectedEvent,
-  updateEvent,
-}) {
+export default function EventForm({ match, history }) {
+  const selectedEvent = useSelector((state) =>
+    state.objEventReducer.events.find((e) => e.id === match.params.id)
+  );
+
+  const dispatch = useDispatch();
+
   const initialValues = selectedEvent ?? {
     title: "",
     category: "",
@@ -22,15 +24,17 @@ export default function EventForm({
 
   function handleFormHandler() {
     selectedEvent
-      ? updateEvent({ ...selectedEvent, ...values })
-      : createEvent({
-          ...values,
-          id: cuid(),
-          hostedBy: "Babu",
-          attendees: [],
-          hostPhotoURL: "/assets/user.png",
-        });
-    setFormOpen(false);
+      ? dispatch(updateEvent({ ...selectedEvent, ...values }))
+      : dispatch(
+          createEvent({
+            ...values,
+            id: cuid(),
+            hostedBy: "Babu",
+            attendees: [],
+            hostPhotoURL: "/assets/user.png",
+          })
+        );
+    history.push("/events");
   }
 
   function handleInputChange(e) {
@@ -96,7 +100,12 @@ export default function EventForm({
             onChange={(e) => handleInputChange(e)}
           />
         </Form.Field>
-        <Button type="submit" floated="right" positive content="Submit" />
+        <Button
+          type="submit"
+          floated="right"
+          positive
+          content={selectedEvent ? "Update" : "Submit"}
+        />
         <Button
           type="submit"
           floated="right"

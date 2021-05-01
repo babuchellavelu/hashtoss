@@ -6,18 +6,25 @@ import App from './app/layout/App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { configureStore } from './app/store/configureStore';
+import ScrollToTop from './app/layout/ScrollToTop';
 
 
 
 
 const rootEl =  document.getElementById('root');
 
+const myStore = configureStore();
+
 function render() {
   ReactDOM.render(
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>
-     
+    <Provider store={myStore}>
+        <BrowserRouter>
+        <ScrollToTop />
+            <App />
+        </BrowserRouter>
+     </Provider>
      , rootEl);
 }
 
