@@ -17,6 +17,7 @@ const rootEl =  document.getElementById('root');
 
 const myStore = configureStore();
 
+
 function render() {
   ReactDOM.render(
     <Provider store={myStore}>

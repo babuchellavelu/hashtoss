@@ -21,7 +21,7 @@ export default function EventDetailedHeader({ event }) {
     <Segment.Group>
       <Segment basic attached="top" style={{ padding: "0" }}>
         <Image
-          src={`/assets/categoryImages/${event.category}.jpg`}
+          src={`/assets/categoryImages/${event?.category}.jpg`}
           fluid
           style={eventImageStyle}
         />
@@ -32,12 +32,12 @@ export default function EventDetailedHeader({ event }) {
               <Item.Content>
                 <Header
                   size="huge"
-                  content={event.title}
+                  content={event?.title}
                   style={{ color: "white" }}
                 />
                 <p>{format(event.date, "MMMM d, yyyy h:mm a")}</p>
                 <p style={eventImageTextStyle}>
-                  Hosted by <strong>{event.hostedBy}</strong>
+                  Hosted by <strong>{event?.hostedBy}</strong>
                 </p>
               </Item.Content>
             </Item>
@@ -51,7 +51,7 @@ export default function EventDetailedHeader({ event }) {
 
         <Button
           as={Link}
-          to={`/manage/${event.id}`}
+          to={`/manage/${event?.id}`}
           color="orange"
           floated="right"
         >

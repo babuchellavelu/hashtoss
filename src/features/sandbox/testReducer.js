@@ -1,3 +1,6 @@
+import { asyncActionError, asyncActionStart, asyncActionFinish } from "../../app/async/asyncReducer";
+import { delay } from "../../app/common/util/util";
+
 export const INCREMENT_COUNTER ='INCREMENT_COUNTER';
 export const DECREMENT_COUNTER ='DECREMENT_COUNTER';
 
@@ -6,15 +9,37 @@ const initialState = {
 };
 
 export function increment (num) {
-    return{
-        type: INCREMENT_COUNTER,
-        payload: num
+
+    return async function(dispatch) {
+        dispatch(asyncActionStart());
+        try{
+                await delay(1000);
+                dispatch({
+                    type: INCREMENT_COUNTER,
+                    payload: num
+                });
+                dispatch(asyncActionFinish());
+        }catch(error) {
+                dispatch(asyncActionError(error))
+        }
+
     }
+   
 }
 export function decrement (num) {
-    return{
-        type: DECREMENT_COUNTER,
-        payload: num
+    return async function(dispatch) {
+        dispatch(asyncActionStart());
+        try{
+            await delay(1000);
+            dispatch({
+                type: DECREMENT_COUNTER,
+                payload: num
+            });
+            dispatch(asyncActionFinish());
+
+        }catch(error){
+                dispatch(asyncActionError(error))
+        }
     }
 }
 export default function testReducer(state= initialState, action) {

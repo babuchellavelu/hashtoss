@@ -7,7 +7,7 @@ import { signOutUser } from "../auth/authActions";
 export default function SignedInPage() {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.auth);
-  console.log(currentUser);
+
   const history = useHistory();
   return (
     <Menu.Item position="right">
