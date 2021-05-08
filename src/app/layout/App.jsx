@@ -9,9 +9,16 @@ import EventForm from "../../features/events/eventForm/EventForm";
 import Sandbox from "../../features/sandbox/Sandbox";
 import ModalManager from "../common/modals/ModalManager";
 import ErrorComponent from "../common/errors/ErrorComponent";
+import AccountPage from "../../features/auth/AccountPage";
+import { useSelector } from "react-redux";
+import LoadingComponent from "./LoadingComponent";
 
 function App() {
   const { key } = useLocation();
+  const { initialized } = useSelector((state) => state.async);
+
+  if (!initialized) return <LoadingComponent content="Loading App..." />;
+
   return (
     <>
       <ModalManager />
@@ -31,6 +38,7 @@ function App() {
                 component={EventForm}
               />
               <Route path="/error" component={ErrorComponent} />
+              <Route path="/account" component={AccountPage} />
             </Container>
           </>
         )}

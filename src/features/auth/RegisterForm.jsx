@@ -6,24 +6,25 @@ import { Button, Divider, Label } from "semantic-ui-react";
 import ArgonTextInput from "../../app/common/form/ArgonTextInput";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal, openModal } from "../../app/common/modals/modalReducer";
-import { signInWithEmail } from "../../app/firestore/firebaseService";
+import { registerInFirebase } from "../../app/firestore/firebaseService";
 import SocialLogin from "./SocialLogin";
 
-export default function LoginForm() {
+export default function RegisterForm() {
   const dispatch = useDispatch();
   const { authenticated } = useSelector((state) => state.auth);
 
   return (
-    <ModalWrapper size="mini" header="Sign In to Re-vents">
+    <ModalWrapper size="mini" header="Sign Up to Re-vents">
       <Formik
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ displayName: "", email: "", password: "" }}
         validationSchema={Yup.object({
+          displayName: Yup.string().required(),
           email: Yup.string().email().required(),
           password: Yup.string().required(),
         })}
         onSubmit={async (values, { setSubmitting, setErrors }) => {
           try {
-            await signInWithEmail(values);
+            await registerInFirebase(values);
             setSubmitting(false);
             dispatch(closeModal());
           } catch (error) {
@@ -33,6 +34,7 @@ export default function LoginForm() {
       >
         {({ isSubmitting, isValid, dirty, errors }) => (
           <Form className="ui form">
+            <ArgonTextInput name="displayName" placeholder="DisplayName" />
             <ArgonTextInput name="email" placeholder="Email" />
             <ArgonTextInput
               name="password"
@@ -53,7 +55,7 @@ export default function LoginForm() {
               type="submit"
               fluid
               size="large"
-              content="Login"
+              content="Register"
               color="teal"
             />
             <Divider horizontal>or</Divider>
@@ -61,12 +63,12 @@ export default function LoginForm() {
             <Button
               onClick={() => {
                 dispatch(closeModal());
-                dispatch(openModal({ modalType: "RegisterForm" }));
+                dispatch(openModal({ modalType: "LoginForm" }));
               }}
               basic
               fluid
               color="blue"
-              content="Don't Have Account - Sign Up"
+              content="Already Have Account - Sign In"
               style={{ marginBottom: 10 }}
             />
           </Form>

@@ -26,6 +26,7 @@ export function increment (num) {
     }
    
 }
+
 export function decrement (num) {
     return async function(dispatch) {
         dispatch(asyncActionStart());
