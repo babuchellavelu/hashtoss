@@ -4,15 +4,13 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { Button, Divider, Label } from "semantic-ui-react";
 import ArgonTextInput from "../../app/common/form/ArgonTextInput";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { closeModal, openModal } from "../../app/common/modals/modalReducer";
 import { signInWithEmail } from "../../app/firestore/firebaseService";
 import SocialLogin from "./SocialLogin";
 
 export default function LoginForm() {
   const dispatch = useDispatch();
-  const { authenticated } = useSelector((state) => state.auth);
-
   return (
     <ModalWrapper size="mini" header="Sign In to Re-vents">
       <Formik

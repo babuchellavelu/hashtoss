@@ -14,10 +14,17 @@ import { Redirect } from "react-router";
 export default function EventDetailedPage({ match }) {
   const dispatch = useDispatch();
 
-  const { loading, error } = useSelector((state) => state.async);
+  const { currentUser } = useSelector((state) => state.auth);
 
   const selected_event = useSelector((state) =>
     state.objEventReducer.events.find((e) => e.id === match.params.id)
+  );
+
+  const { loading, error } = useSelector((state) => state.async);
+
+  const isHost = selected_event?.hostUid === currentUser?.uid;
+  const isGoing = selected_event?.attendees.some(
+    (a) => a.id === currentUser?.uid
   );
 
   useFirestoreDoc({
@@ -34,12 +41,23 @@ export default function EventDetailedPage({ match }) {
   return (
     <Grid>
       <Grid.Column width={10}>
-        <EventDetailedHeader event={selected_event} />
-        <EventDetailedInfo event={selected_event} />
+        <EventDetailedHeader
+          event={selected_event}
+          isHost={isHost}
+          isGoing={isGoing}
+        />
+        <EventDetailedInfo
+          event={selected_event}
+          isHost={isHost}
+          isGoing={isGoing}
+        />
         <EventDetailedChat event={selected_event} />
       </Grid.Column>
       <Grid.Column width={6}>
-        <EventDetailedSidebar attendees={selected_event?.attendees} />
+        <EventDetailedSidebar
+          attendees={selected_event?.attendees}
+          hostUid={selected_event?.hostUid}
+        />
       </Grid.Column>
     </Grid>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid } from "semantic-ui-react";
 import EventList from "./EventList";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,13 +13,32 @@ import { Redirect } from "react-router";
 export default function EventDashboard() {
   const { events } = useSelector((state) => state.objEventReducer);
   const dispatch = useDispatch();
-
   const { loading, error } = useSelector((state) => state.async);
 
+  /* Filter Code Declaration - Start  (Multiple filed Filter)
+    const [pridicate, setPridicate] = useState(
+    new Map([
+      ["startdate", new Date()],
+      ["filter", "all"],
+    ])
+  );
+  */
+  const [predicate, setPredicate] = useState(
+    new Map([
+      ["startdate", new Date()],
+      ["filter", "all"],
+    ])
+  );
+
+  function handleSetPredicate(key, value) {
+    setPredicate(new Map(predicate.set(key, value)));
+  }
+  /* Filter Code Declaration- End*/
+
   useFirestoreCollection({
-    query: () => listenToEventsFromFirestore(),
+    query: () => listenToEventsFromFirestore(predicate),
     data: (events) => dispatch(listenToEvents(events)),
-    deps: [dispatch],
+    deps: [dispatch.predicate],
   });
 
   if (loading || (!events && !error))
@@ -38,7 +57,11 @@ export default function EventDashboard() {
         <EventList events={events} />
       </Grid.Column>
       <Grid.Column width={6}>
-        <EventFilters />
+        <EventFilters
+          predicate={predicate}
+          setPredicate={handleSetPredicate}
+          loading={loading}
+        />
       </Grid.Column>
     </Grid>
   );
