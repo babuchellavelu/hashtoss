@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button, Header, Label, Segment } from "semantic-ui-react";
 import * as Yup from "yup";
-import ArgonTextInput from "../../app/common/form/ArgonTextInput";
+import HTTextInput from "../../app/common/form/HTTextInput";
 import { updateUserPassword } from "../../app/firestore/firebaseService";
 
 export default function AccountPage() {
@@ -39,12 +39,12 @@ export default function AccountPage() {
             >
               {({ isSubmitting, isValid, dirty, errors }) => (
                 <Form className="ui form">
-                  <ArgonTextInput
+                  <HTTextInput
                     name="newPassword"
                     type="password"
                     placeholder="Password"
                   />
-                  <ArgonTextInput
+                  <HTTextInput
                     name="confirmPassord"
                     type="password"
                     placeholder="Confirm Password"

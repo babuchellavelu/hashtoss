@@ -3,7 +3,7 @@ import ModalWrapper from "../../app/common/modals/ModalWrapper";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { Button, Divider, Label } from "semantic-ui-react";
-import ArgonTextInput from "../../app/common/form/ArgonTextInput";
+import HTTextInput from "../../app/common/form/HTTextInput";
 import { useDispatch } from "react-redux";
 import { closeModal, openModal } from "../../app/common/modals/modalReducer";
 import { registerInFirebase } from "../../app/firestore/firebaseService";
@@ -33,9 +33,9 @@ export default function RegisterForm() {
       >
         {({ isSubmitting, isValid, dirty, errors }) => (
           <Form className="ui form">
-            <ArgonTextInput name="displayName" placeholder="DisplayName" />
-            <ArgonTextInput name="email" placeholder="Email" />
-            <ArgonTextInput
+            <HTTextInput name="displayName" placeholder="DisplayName" />
+            <HTTextInput name="email" placeholder="Email" />
+            <HTTextInput
               name="password"
               placeholder="Password"
               type="password"

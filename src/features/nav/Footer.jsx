@@ -5,18 +5,19 @@ import { useSelector } from "react-redux";
 import SignedInMenu from "./SignedInMenu";
 import SignedOutMenu from "./SignedOutMenu";
 
-export default function NavBar() {
+export default function Footer() {
   const { authendicated } = useSelector((state) => state.auth);
+
   return (
-    <Menu fixed="top" inverted>
+    <Menu fixed="bottom">
       <Container>
-        <Menu.Item as={NavLink} to="/" exact header>
+        {/* <Menu.Item as={NavLink} to="/" exact header>
           <img
             src="/images/hashtoss.png"
             alt="logo"
             style={{ marginRight: 15, width: "85px" }}
           />
-        </Menu.Item>
+        </Menu.Item> */}
         <Menu.Item as={NavLink} to="/events" name="Latest News" />
         <Menu.Item as={NavLink} to="/sandbox" name="Sandbox" />
         {authendicated && (

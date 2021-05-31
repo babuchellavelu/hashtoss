@@ -47,12 +47,12 @@ export default function EventDetailedHeader({ event, isHost, isGoing }) {
   return (
     <Segment.Group>
       <Segment basic attached="top" style={{ padding: "0" }}>
-        <Image
+        {/* <Image
           src={`/assets/categoryImages/${event?.category}.jpg`}
           fluid
           style={eventImageStyle}
-        />
-
+        /> */}
+        <Image src={event.imageURL} fluid style={eventImageStyle} />
         <Segment basic>
           <Item.Group>
             <Item>

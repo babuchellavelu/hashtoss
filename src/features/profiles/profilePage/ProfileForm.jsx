@@ -3,8 +3,8 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { Button } from "semantic-ui-react";
 
-import ArgonTextInput from "../../../app/common/form/ArgonTextInput";
-import ArgonTextAreaInput from "../../../app/common/form/ArgonTextAreaInput";
+import HTTextInput from "../../../app/common/form/HTTextInput";
+import HTTextAreaInput from "../../../app/common/form/HTTextAreaInput";
 import { updateUserProfile } from "../../../app/firestore/firestoreService";
 
 export default function ProfileForm({ profile }) {
@@ -29,8 +29,8 @@ export default function ProfileForm({ profile }) {
     >
       {({ isSubmitting, isValid, dirty }) => (
         <Form className="ui form">
-          <ArgonTextInput name="displayName" placeholder="Display Name" />
-          <ArgonTextAreaInput name="description" placeholder="Description" />
+          <HTTextInput name="displayName" placeholder="Display Name" />
+          <HTTextAreaInput name="description" placeholder="Description" />
 
           <Button
             loading={isSubmitting}

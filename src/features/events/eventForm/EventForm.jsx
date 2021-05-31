@@ -5,11 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { listenToEvents } from "../eventActions";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import ArgonTextInput from "../../../app/common/form/ArgonTextInput";
-import ArgonTextAreaInput from "../../../app/common/form/ArgonTextAreaInput";
-import ArgonSelectInput from "../../../app/common/form/ArgonSelectInput";
+import HTTextInput from "../../../app/common/form/HTTextInput";
+import HTTextAreaInput from "../../../app/common/form/HTTextAreaInput";
+import HTSelectInput from "../../../app/common/form/HTSelectInput";
 import { categoryData } from "../../../app/api/categoryOptions";
-//import ArgonDateInput from "../../../app/common/form/ArgonDateInput";
+import HTDateInput from "../../../app/common/form/HTDateInput";
 
 import useFirestoreDoc from "../../../app/hooks/useFirestoreDoc";
 import {
@@ -40,15 +40,22 @@ export default function EventForm({ match, history }) {
     title: "",
     category: "",
     description: "",
+    imageURL:
+      "https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350",
+    eventImage: null,
     city: "",
     venue: "",
-    date: "May 04, 2021 12:54 AM",
+    date: new Date(),
   };
 
   const validationSchema = Yup.object({
     title: Yup.string().required("You must provide the Title"),
     category: Yup.string().required("You must provide the Category"),
     description: Yup.string().required("You must provide the Description"),
+    imageURL: Yup.string().required("Please upload the Image URL"),
+    // eventImage: Yup.object().shape({
+    //   file: Yup.object().shape({ name: Yup.string().required() }).label("File"),
+    // }),
     city: Yup.string().required(),
     venue: Yup.string().required(),
     date: Yup.string().required(),
@@ -97,30 +104,32 @@ export default function EventForm({ match, history }) {
       >
         {({ isSubmitting, dirty, isValid }) => (
           <Form className="ui form">
-            <Header sub color="teal" content="Event Details" />
-            <ArgonTextInput name="title" placeholder="Event Title" />
-            <ArgonSelectInput
+            <Header sub color="teal" content="News Details" />
+            <HTTextInput name="title" placeholder="News Title" />
+            <HTSelectInput
               name="category"
-              placeholder="Category"
+              placeholder="News Category"
               options={categoryData}
             />
-            <ArgonTextAreaInput
+            <HTTextAreaInput
               name="description"
               placeholder="Description"
               rows={3}
             />
-            <Header sub color="teal" content="Event Location Details" />
-            <ArgonTextInput name="city" placeholder="City" />
-            <ArgonTextInput name="venue" placeholder="Venue" />
-            <ArgonTextInput name="date" placeholder="Event Date" />
-            {/* <ArgonDateInput
+            <HTTextInput name="imageURL" placeholder="Upload Image URL" />
+            <input type="file" name="eventImage" placeholder="Upload Image" />
+            <Header sub color="teal" content="News Location Details" />
+            <HTTextInput name="city" placeholder="City" />
+            <HTTextInput name="venue" placeholder="Venue" />
+            <HTDateInput
               name="date"
-              placeholderText="Event Date"
+              placeholderText="News Date"
               timeFormat="HH:mm"
               showTimeSelect
               timeCaption="time"
               dateFormat="MMMM d, yyyy h:mm a"
-            /> */}
+            />
+
             {selectedEvent && (
               <Button
                 loading={loadingCancel}

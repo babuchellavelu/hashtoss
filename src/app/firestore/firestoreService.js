@@ -24,7 +24,7 @@ export function dataFromSnapshot(snapshot) {
 
 export function listenToEventsFromFirestore(predicate){
     const user= firebase.auth().currentUser;
-     let eventsRef= db.collection('events');
+     let eventsRef= db.collection('events').orderBy('date','desc');
      switch(predicate.get('filter')){
          case 'isGoing':
              return eventsRef
@@ -178,4 +178,9 @@ export async function updateUserProfile(profile){
     }
 
  }
- 
+
+ /*Menu List  - Start*/
+
+  export function listenToMenuFromFirestore() {
+        return db.collection('menu');
+ }

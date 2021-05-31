@@ -1,9 +1,10 @@
-import { LISTEN_TO_CURRENT_USER_PROFILE, LISTEN_TO_SELECTED_USER_PROFILE, LISTEN_TO_USER_EVENTS } from "../profileConstants";
+import {  LISTEN_TO_CURRENT_USER_PROFILE, LISTEN_TO_SELECTED_USER_PROFILE, LISTEN_TO_USER_EVENTS } from "../profileConstants";
 
 const initialState = {
     currentUserProfile :null,
     selectedUserProfile: null,
-    profileEvents: null
+    profileEvents: null,
+ 
 
 }
 
@@ -25,7 +26,6 @@ export default function profileReducer( state =initialState, {type,payload}){
                 ...state,
                 profileEvents: payload
             };
-            
 
 
                        default:{

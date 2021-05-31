@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid } from "semantic-ui-react";
+import { Grid, GridColumn } from "semantic-ui-react";
 import EventList from "./EventList";
 import { useDispatch, useSelector } from "react-redux";
 import { listenToEventsFromFirestore } from "../../../app/firestore/firestoreService";
@@ -9,6 +9,8 @@ import EventListItemPlaceholder from "./EventItemPlaceholder";
 import EventFilters from "./EventFilters";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { Redirect } from "react-router";
+
+import Carousal from "../../carousal/Carousal";
 
 export default function EventDashboard() {
   const { events } = useSelector((state) => state.objEventReducer);
@@ -48,15 +50,35 @@ export default function EventDashboard() {
 
   return (
     <Grid>
-      <Grid.Column width={10}>
+      {/* <Grid.Row>
+        <Grid.Column width={8}>
+          <EventFilters
+            predicate={predicate}
+            setPredicate={handleSetPredicate}
+            loading={loading}
+          />
+        </Grid.Column>
+        <Grid.Column width={8}>
+          <Carousal />
+        </Grid.Column>
+      </Grid.Row> */}
+      <Grid.Column width={4} fixed>
+        <EventFilters
+          predicate={predicate}
+          setPredicate={handleSetPredicate}
+          loading={loading}
+        />
+      </Grid.Column>
+      <Grid.Column width={8}>
         {loading && (
           <>
             <EventListItemPlaceholder />
           </>
         )}
+
         <EventList events={events} />
       </Grid.Column>
-      <Grid.Column width={6}>
+      <Grid.Column width={4} fixed>
         <EventFilters
           predicate={predicate}
           setPredicate={handleSetPredicate}

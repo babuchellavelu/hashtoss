@@ -2,7 +2,7 @@ import { useField } from "formik";
 import React from "react";
 import { Label, FormField } from "semantic-ui-react";
 
-export default function ArgonTextAreaInput({ lable, ...props }) {
+export default function HTTextAreaInput({ lable, ...props }) {
   const [field, meta] = useField(props);
   return (
     <FormField error={meta.touched && !!meta.error}>

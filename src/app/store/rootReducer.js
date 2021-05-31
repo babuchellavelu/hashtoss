@@ -5,6 +5,7 @@ import profileReducer from '../../features/profiles/profilePage/profileReducer';
 import testReducer from '../../features/sandbox/testReducer';
 import asyncReducer from '../async/asyncReducer';
 import modalReducer from '../common/modals/modalReducer';
+import menuReducer from '../../features/nav/navReducer';
 
 const rootReducer = combineReducers({
     objTestReducer: testReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     modals: modalReducer,
     auth: authReducer,
     async: asyncReducer,
-    profile: profileReducer
+    profile: profileReducer,
+    menu: menuReducer
 })
 
 export default rootReducer;
